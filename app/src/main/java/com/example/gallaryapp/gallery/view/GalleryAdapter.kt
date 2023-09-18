@@ -1,4 +1,4 @@
-package com.example.gallaryapp.gallery
+package com.example.gallaryapp.gallery.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

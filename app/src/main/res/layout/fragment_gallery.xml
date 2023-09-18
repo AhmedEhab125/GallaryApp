@@ -6,13 +6,13 @@
     <data>
     <variable
         name="adapter"
-        type="com.example.gallaryapp.gallery.GalleryAdapter" />
+        type="com.example.gallaryapp.gallery.view.GalleryAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".gallery.GalleryFragment" >
+        tools:context=".gallery.view.GalleryFragment" >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_gallery"
