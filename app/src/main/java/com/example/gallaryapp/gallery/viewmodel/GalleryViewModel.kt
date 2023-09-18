@@ -14,12 +14,12 @@ import javax.inject.Inject
 @HiltViewModel
 
 class GalleryViewModel @Inject constructor(private var repository: IRepo) : ViewModel() {
-    private var _localProductsData = MutableStateFlow<List<String>>(listOf())
-    var accessLocalProductsData: StateFlow<List<String>> = _localProductsData
+    private var _localImagesData = MutableStateFlow<List<String>>(listOf())
+    var accessLocalImagesData: StateFlow<List<String>> = _localImagesData
     fun getGalleryImgs(){
         viewModelScope.launch {
             repository.getImagePathsFromMediaStore().collect{
-                _localProductsData.value=it
+                _localImagesData.value=it
             }
         }
 

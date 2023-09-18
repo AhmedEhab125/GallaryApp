@@ -56,14 +56,14 @@ class GalleryFragment : Fragment() {
 
     fun setUI() {
         adapter = GalleryAdapter(listOf())
-        binding.adapter = adapter
+        binding.galleryAdapter = adapter
 
 
     }
     fun getGalleryImgs(){
         galleryViewModel.getGalleryImgs()
         lifecycleScope.launch {
-            galleryViewModel.accessLocalProductsData.collect{
+            galleryViewModel.accessLocalImagesData.collect{
                     imgsList->
                 adapter.updateList(imgsList)
             }

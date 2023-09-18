@@ -5,7 +5,7 @@
 
     <data>
     <variable
-        name="adapter"
+        name="galleryAdapter"
         type="com.example.gallaryapp.gallery.view.GalleryAdapter" />
     </data>
 
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:adapter="@{adapter}"
+            android:adapter="@{galleryAdapter}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -9,4 +9,8 @@ class Repository @Inject constructor(var localDataSource: ILocalDataSource):IRep
         return localDataSource.getImagePathsFromMediaStore()
     }
 
+    override suspend fun getVideoPathsFromMediaStore(): Flow<List<String>> {
+        return localDataSource.getVideosPathsFromMediaStore()
+    }
+
 }
