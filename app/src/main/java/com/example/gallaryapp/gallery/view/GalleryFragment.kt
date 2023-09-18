@@ -82,7 +82,7 @@ class GalleryFragment : Fragment() {
                 // Permission granted
                 getGalleryImgs()
             } else {
-                Toast.makeText(requireContext(),"enable access storage",Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),"Enable access storage",Toast.LENGTH_LONG).show()
 
             }
         }
