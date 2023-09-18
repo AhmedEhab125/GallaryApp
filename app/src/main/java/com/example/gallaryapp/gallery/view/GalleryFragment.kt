@@ -79,14 +79,11 @@ class GalleryFragment : Fragment() {
 
         if (requestCode == STORAGE_PERMISSION_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, you can now access external storage
+                // Permission granted
                 getGalleryImgs()
-                println("d5aaaaaaaaaaaaal")
             } else {
-                // Permission denied, handle it accordingly (e.g., show a message to the user)
                 Toast.makeText(requireContext(),"enable access storage",Toast.LENGTH_LONG).show()
-                println("d5aaaaaaaaaaaaal")
-                println("d5aaaaaaaaaaaaal")
+
             }
         }
     }
