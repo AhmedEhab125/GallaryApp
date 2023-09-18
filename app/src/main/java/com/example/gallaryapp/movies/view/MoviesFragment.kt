@@ -36,8 +36,12 @@ class MoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             getVideos()
         } else {
             // Permission is not granted
@@ -49,20 +53,28 @@ class MoviesFragment : Fragment() {
         }
 
 
-
     }
-    fun init(){
+
+    fun init() {
         adapter = MoviesAdapter(listOf())
         binding.moviesAdapter = adapter
     }
+
     fun getVideos() {
         moviesViewModel.getVideos()
         lifecycleScope.launch {
-            moviesViewModel.accessLocalVideosData.collect {
-                adapter.updateList(it)
+            moviesViewModel.accessLocalVideosData.collect { videos ->
+                if (!videos.isEmpty()) {
+                    adapter.updateList(videos)
+                    binding.noItems2.visibility = View.GONE
+
+                } else {
+                    binding.noItems2.visibility = View.VISIBLE
+                }
             }
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -75,7 +87,7 @@ class MoviesFragment : Fragment() {
                 // Permission granted
                 getVideos()
             } else {
-                Toast.makeText(requireContext(),"Enable access storage", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Enable access storage", Toast.LENGTH_LONG).show()
 
             }
         }

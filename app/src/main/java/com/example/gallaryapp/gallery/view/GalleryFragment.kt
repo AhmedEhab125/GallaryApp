@@ -40,8 +40,12 @@ class GalleryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUI()
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             getGalleryImgs()
         } else {
             // Permission is not granted
@@ -60,16 +64,22 @@ class GalleryFragment : Fragment() {
 
 
     }
-    fun getGalleryImgs(){
+
+    fun getGalleryImgs() {
         galleryViewModel.getGalleryImgs()
         lifecycleScope.launch {
-            galleryViewModel.accessLocalImagesData.collect{
-                    imgsList->
-                adapter.updateList(imgsList)
+            galleryViewModel.accessLocalImagesData.collect { imgsList ->
+                if (!imgsList.isEmpty()){
+                    adapter.updateList(imgsList)
+                    binding.noItems.visibility=View.GONE
+                }
+                else
+                    binding.noItems.visibility=View.VISIBLE
             }
         }
 
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -82,7 +92,7 @@ class GalleryFragment : Fragment() {
                 // Permission granted
                 getGalleryImgs()
             } else {
-                Toast.makeText(requireContext(),"Enable access storage",Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Enable access storage", Toast.LENGTH_LONG).show()
 
             }
         }
