@@ -1,5 +1,6 @@
 package com.example.gallaryapp.gallery.viewmodel
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -14,8 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 
 class GalleryViewModel @Inject constructor(private var repository: IRepo) : ViewModel() {
-    private var _localImagesData = MutableStateFlow<List<String>>(listOf())
-    var accessLocalImagesData: StateFlow<List<String>> = _localImagesData
+    private var _localImagesData = MutableStateFlow<List<Uri>>(listOf())
+    var accessLocalImagesData: StateFlow<List<Uri>> = _localImagesData
     fun getGalleryImgs(){
         viewModelScope.launch {
             repository.getImagePathsFromMediaStore().collect{

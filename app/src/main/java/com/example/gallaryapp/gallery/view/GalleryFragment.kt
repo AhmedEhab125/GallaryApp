@@ -44,7 +44,7 @@ class GalleryFragment : Fragment() {
                 requireContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
-            == PackageManager.PERMISSION_GRANTED
+            == PackageManager.PERMISSION_GRANTED || android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q
         ) {
             getGalleryImgs()
         } else {
@@ -69,12 +69,11 @@ class GalleryFragment : Fragment() {
         galleryViewModel.getGalleryImgs()
         lifecycleScope.launch {
             galleryViewModel.accessLocalImagesData.collect { imgsList ->
-                if (!imgsList.isEmpty()){
+                if (!imgsList.isEmpty()) {
                     adapter.updateList(imgsList)
-                    binding.noItems.visibility=View.GONE
-                }
-                else
-                    binding.noItems.visibility=View.VISIBLE
+                    binding.noItems.visibility = View.GONE
+                } else
+                    binding.noItems.visibility = View.VISIBLE
             }
         }
 

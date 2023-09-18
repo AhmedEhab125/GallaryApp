@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -40,7 +41,7 @@ class MoviesFragment : Fragment() {
                 requireContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
-            == PackageManager.PERMISSION_GRANTED
+            == PackageManager.PERMISSION_GRANTED || android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q
         ) {
             getVideos()
         } else {
@@ -88,6 +89,7 @@ class MoviesFragment : Fragment() {
                 getVideos()
             } else {
                 Toast.makeText(requireContext(), "Enable access storage", Toast.LENGTH_LONG).show()
+
 
             }
         }

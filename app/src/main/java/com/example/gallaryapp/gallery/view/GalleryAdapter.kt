@@ -1,5 +1,6 @@
 package com.example.gallaryapp.gallery.view
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -7,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gallaryapp.R
 import com.example.gallaryapp.databinding.GalleryItemBinding
 
-class GalleryAdapter(var imgList: List<String>) :
+class GalleryAdapter(var imgList: List<Uri>) :
     RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
 
@@ -26,7 +27,7 @@ class GalleryAdapter(var imgList: List<String>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
        holder.binding.imageUrl = imgList[position]
     }
-    fun updateList(imgList : List<String>){
+    fun updateList(imgList : List<Uri>){
         this.imgList = imgList
         notifyDataSetChanged()
     }
