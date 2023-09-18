@@ -14,16 +14,6 @@
 
 
         <ImageView
-            android:id="@+id/iv_play"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_gallery2"
-            app:layout_constraintEnd_toEndOf="@+id/iv_gallery2"
-            app:layout_constraintStart_toStartOf="@+id/iv_gallery2"
-            app:layout_constraintTop_toTopOf="@+id/iv_gallery2"
-            app:srcCompat="@drawable/play" />
-
-        <ImageView
             android:id="@+id/iv_gallery2"
             android:layout_width="0dp"
             android:layout_height="150dp"
@@ -36,5 +26,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/vedios" />
+
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_gallery2"
+            app:layout_constraintEnd_toEndOf="@+id/iv_gallery2"
+            app:layout_constraintStart_toStartOf="@+id/iv_gallery2"
+            app:layout_constraintTop_toTopOf="@+id/iv_gallery2"
+            app:srcCompat="@drawable/play" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
