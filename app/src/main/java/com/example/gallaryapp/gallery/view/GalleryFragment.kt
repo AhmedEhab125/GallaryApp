@@ -26,7 +26,7 @@ class GalleryFragment : Fragment() {
     private lateinit var binding: FragmentGalleryBinding
     private lateinit var adapter: GalleryAdapter
     private val galleryViewModel: GalleryViewModel by viewModels()
-    private val readImagePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+    private val readImagePermission = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R)
         Manifest.permission.READ_MEDIA_IMAGES
     else
         Manifest.permission.READ_EXTERNAL_STORAGE

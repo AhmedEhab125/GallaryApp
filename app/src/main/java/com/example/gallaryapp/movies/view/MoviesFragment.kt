@@ -23,7 +23,7 @@ class MoviesFragment : Fragment() {
     lateinit var binding: FragmentMoviesBinding
     lateinit var adapter: MoviesAdapter
     private val moviesViewModel: MoviesViewModel by viewModels()
-    private val readVideoPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+    private val readVideoPermission = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R)
         Manifest.permission.READ_MEDIA_VIDEO
     else
         Manifest.permission.READ_EXTERNAL_STORAGE
