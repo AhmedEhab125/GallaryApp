@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GalleryFragment : Fragment() {
-    private val STORAGE_PERMISSION_CODE = 1952
+    private val STORAGE_PERMISSION_CODE = 1
     private lateinit var binding: FragmentGalleryBinding
     private lateinit var adapter: GalleryAdapter
     private val galleryViewModel: GalleryViewModel by viewModels()

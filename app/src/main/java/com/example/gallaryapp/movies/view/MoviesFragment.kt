@@ -4,25 +4,22 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.gallaryapp.databinding.FragmentMoviesBinding
-import com.example.gallaryapp.gallery.viewmodel.GalleryViewModel
 import com.example.gallaryapp.movies.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-
 class MoviesFragment : Fragment() {
-    private val STORAGE_PERMISSION_CODE = 1952
+    private val STORAGE_PERMISSION_CODE = 2
     lateinit var binding: FragmentMoviesBinding
     lateinit var adapter: MoviesAdapter
     private val moviesViewModel: MoviesViewModel by viewModels()
@@ -44,7 +41,7 @@ class MoviesFragment : Fragment() {
         init()
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                readVideoPermission
             )
             == PackageManager.PERMISSION_GRANTED
         ) {
@@ -53,7 +50,7 @@ class MoviesFragment : Fragment() {
             // Permission is not granted
             // Request the permission
             requestPermissions(
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                arrayOf(readVideoPermission),
                 STORAGE_PERMISSION_CODE
             )
         }
