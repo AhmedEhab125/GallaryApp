@@ -42,7 +42,7 @@ class LocalDataSource(var context: Context) : ILocalDataSource {
     override suspend fun getVideosPathsFromMediaStore(): Flow<List<String>> {
         val videoPaths = mutableListOf<String>()
         val projection = arrayOf(MediaStore.Video.Thumbnails.DATA)
-        val videoUri = MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI
+        val videoUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
 
         val cursor: Cursor? =
             context.contentResolver.query(videoUri, projection, null, null, null)
