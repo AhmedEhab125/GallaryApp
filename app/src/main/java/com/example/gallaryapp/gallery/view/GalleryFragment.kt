@@ -2,14 +2,13 @@ package com.example.gallaryapp.gallery.view
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.database.Cursor
+import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -27,6 +26,10 @@ class GalleryFragment : Fragment() {
     private lateinit var binding: FragmentGalleryBinding
     private lateinit var adapter: GalleryAdapter
     private val galleryViewModel: GalleryViewModel by viewModels()
+    private val readImagePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        Manifest.permission.READ_MEDIA_IMAGES
+    else
+        Manifest.permission.READ_EXTERNAL_STORAGE
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,20 +43,18 @@ class GalleryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUI()
+
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                readImagePermission
             )
-            == PackageManager.PERMISSION_GRANTED || android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q
+            == PackageManager.PERMISSION_GRANTED
         ) {
             getGalleryImgs()
         } else {
-            // Permission is not granted
-            // Request the permission
-            requestPermissions(
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                STORAGE_PERMISSION_CODE
-            )
+            val permission = readImagePermission
+            Log.i("TAG", "onViewCreated: ")
+            requestPermissions(arrayOf(permission), STORAGE_PERMISSION_CODE)
         }
 
     }
@@ -66,7 +67,6 @@ class GalleryFragment : Fragment() {
     }
 
     fun getGalleryImgs() {
-        galleryViewModel.getGalleryImgs()
         lifecycleScope.launch {
             galleryViewModel.accessLocalImagesData.collect { imgsList ->
                 if (!imgsList.isEmpty()) {
@@ -76,6 +76,7 @@ class GalleryFragment : Fragment() {
                     binding.noItems.visibility = View.VISIBLE
             }
         }
+        galleryViewModel.getGalleryImgs()
 
     }
 
