@@ -2,6 +2,7 @@ package com.example.gallaryapp.movies.view
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,10 +22,14 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 
 class MoviesFragment : Fragment() {
-    private val STORAGE_PERMISSION_CODE = 1
+    private val STORAGE_PERMISSION_CODE = 1952
     lateinit var binding: FragmentMoviesBinding
     lateinit var adapter: MoviesAdapter
     private val moviesViewModel: MoviesViewModel by viewModels()
+    private val readVideoPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        Manifest.permission.READ_MEDIA_VIDEO
+    else
+        Manifest.permission.READ_EXTERNAL_STORAGE
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +46,7 @@ class MoviesFragment : Fragment() {
                 requireContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
-            == PackageManager.PERMISSION_GRANTED || android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q
+            == PackageManager.PERMISSION_GRANTED
         ) {
             getVideos()
         } else {
@@ -62,7 +67,7 @@ class MoviesFragment : Fragment() {
     }
 
     fun getVideos() {
-        moviesViewModel.getVideos()
+
         lifecycleScope.launch {
             moviesViewModel.accessLocalVideosData.collect { videos ->
                 if (!videos.isEmpty()) {
@@ -74,6 +79,7 @@ class MoviesFragment : Fragment() {
                 }
             }
         }
+        moviesViewModel.getVideos()
     }
 
     override fun onRequestPermissionsResult(
